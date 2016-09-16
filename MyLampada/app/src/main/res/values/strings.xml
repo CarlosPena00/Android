@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyLampada</string>
+    <string name="a_lampada_la_de_casa">A Lampada La de Casa</string>
+    <string name="turn_on">Turn On!</string>
+    <string name="turn_off">Turn Off</string>
+    <string name="list_devices">List Devices</string>
+    <string name="get_visible">Get Visible!</string>
+    <string name="start_discovery">Start Discovery</string>
+    <string name="cancel_discovery">Cancel Discovery</string>
+    <string name="send_0">Send 0</string>
+    <string name="send_1">Send 1</string>
+</resources>
