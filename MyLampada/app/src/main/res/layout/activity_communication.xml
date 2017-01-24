@@ -45,17 +45,61 @@
         android:layout_height="wrap_content"
         android:text="MsgFromBlueTooth"
         android:id="@+id/textViewMsgReciver"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test"
-        android:id="@+id/buttonTest"
         android:layout_above="@+id/linearLayout4"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:text="@string/send_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4"
+            android:layout_weight="1"
+            android:textSize="45sp"
+            android:onClick="sendCharA"/>
+
+        <Button
+            android:text="@string/send_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button5"
+            android:layout_weight="1"
+            android:textSize="45sp"
+            android:onClick="sendCharB"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:layout_above="@+id/linearLayout4"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:text="@string/send_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button6"
+            android:layout_weight="1"
+            android:textSize="45sp"
+            android:onClick="sendCharC"/>
+
+        <Button
+            android:text="@string/send_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button7"
+            android:layout_weight="1"
+            android:textSize="45sp"
+            android:onClick="sendCharD"/>
+    </LinearLayout>
 
 </RelativeLayout>

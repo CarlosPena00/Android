@@ -9,4 +9,8 @@
     <string name="cancel_discovery">Cancel Discovery</string>
     <string name="send_0">Send 0</string>
     <string name="send_1">Send 1</string>
+    <string name="send_d">Send D</string>
+    <string name="send_c">Send C</string>
+    <string name="send_b">Send B</string>
+    <string name="send_a">Send A</string>
 </resources>

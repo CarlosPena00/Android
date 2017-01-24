@@ -22,7 +22,9 @@ public class Communication extends AppCompatActivity {
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private OutputStream outStream = null;
+//    private static final UUID MY_UUID = UUID.randomUUID();
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
     public String newAddress = null;
 
     @Override
@@ -113,6 +115,7 @@ public class Communication extends AppCompatActivity {
     public void sendCharG(View view){
         sendData("G");
     }
+
     private void checkBTState(){
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         if(btAdapter==null){

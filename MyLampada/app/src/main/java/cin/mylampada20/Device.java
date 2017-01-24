@@ -1,5 +1,6 @@
 package cin.mylampada20;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,13 +26,17 @@ public class Device extends AppCompatActivity {
     private Set<BluetoothDevice> pairedDevices;
     ListView listView;
     ArrayList list = new ArrayList();
+    Context context;
+
     public static String EXTRA_DEVICE_ADDRESS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
+        context = getApplicationContext();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
             btAdapter = BluetoothAdapter.getDefaultAdapter();
+
         }
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,14 +58,10 @@ public class Device extends AppCompatActivity {
         if(!btAdapter.isEnabled()){
             Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnOn, 0);
-            Toast.makeText(getApplicationContext(),"BlueTooth ON!",Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(getApplicationContext(),"Blue Already ON!!",Toast.LENGTH_LONG).show();
         }
     }
     public void off(View v){
         btAdapter.disable();
-        Toast.makeText(getApplicationContext(),"BlueTooth OFF", Toast.LENGTH_LONG).show();
     }
     public void visible(View v){
         Intent getVisible = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
@@ -75,23 +77,22 @@ public class Device extends AppCompatActivity {
         int i = 0;
         for(BluetoothDevice bt : pairedDevices){
             list.add(bt.getName() + "\n" + bt.getAddress());
-
         }
         Toast.makeText(getApplicationContext(),"Showing Paired Devices",Toast.LENGTH_SHORT).show();
         final ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
         listView.setAdapter(adapter);
 
-        //
     }
 
     public void discovery(View v){
-
+        int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
         if(btAdapter.startDiscovery()){
-            Toast.makeText(getApplicationContext(),"True",Toast.LENGTH_LONG).show();
-
+            Toast.makeText(getApplicationContext(),"Discovery Start!",Toast.LENGTH_LONG).show();
             final BroadcastReceiver mReceiver = new BroadcastReceiver() {
                 public void onReceive(Context context, Intent intent) {
-
                     String action = intent.getAction();
                     // When discovery finds a device
                     if (BluetoothDevice.ACTION_FOUND.equals(action)) {
@@ -102,20 +103,16 @@ public class Device extends AppCompatActivity {
                         list.add(device.getName() + "\n" + device.getAddress());
 
                     }
-                    final ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,list);
+                    final ArrayAdapter adapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,list);
                     listView.setAdapter(adapter);
                 }
             };
 // Register the BroadcastReceiver
-
-
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             registerReceiver(mReceiver, filter); // Don't forget to unregister during onDestroy
-
         }
         else Toast.makeText(getApplicationContext(),"False",Toast.LENGTH_SHORT).show();
-
-
-
     }
+
+
 }
